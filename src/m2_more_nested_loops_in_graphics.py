@@ -3,8 +3,8 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Brian Whitacre.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -52,6 +52,32 @@ def draw_upside_down_wall(rectangle, n, window):
     # TODO: 2. Implement and test this function.
     #     Some tests are already written for you (above).
     # ------------------------------------------------------------------
+
+    y_push = rectangle.corner_2.y - rectangle.corner_1.y
+    push_amount = rectangle.corner_2.x - rectangle.corner_1.x
+
+
+
+    new_rectangle = rectangle
+
+    for i in range(n,0,-1):
+        for k in range(n-i+1):
+            shift_fix = (n-i) * push_amount*.5
+
+            if k == 0:
+                x_push = 0
+
+            new_rectangle =rg.Rectangle(rg.Point(rectangle.corner_1.x + x_push - shift_fix ,new_rectangle.corner_1.y),rg.Point(rectangle.corner_2.x + x_push - shift_fix ,new_rectangle.corner_2.y))
+
+            new_rectangle.attach_to(window)
+            window.render()
+
+            x_push += rectangle.corner_2.x - rectangle.corner_1.x
+
+        new_rectangle = rg.Rectangle(rg.Point(rectangle.corner_1.x, new_rectangle.corner_1.y - y_push) ,
+                                     rg.Point(rectangle.corner_2.x, new_rectangle.corner_2.y - y_push))
+
+        x_push = -(rectangle.corner_2.x - rectangle.corner_1.x)
 
 
 # ----------------------------------------------------------------------
